@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router.js'
+// import 'style.css'
 import axios from 'axios'
 
 // const token = localStorage.getItem('token')
