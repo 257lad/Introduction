@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router.js'
 import axios from 'axios'
 
-const token = localStorage.getItem('token')
+// const token = localStorage.getItem('token')
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
@@ -18,9 +18,14 @@ axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 //     }
 // )
 
-axios.interceptors.response.use(
+// axios.interceptors.response.use(
+//     (response) => {
 
-)
+//     },
+//     (error) => {
+
+//     }
+// )
 
 window.axios = axios
 
