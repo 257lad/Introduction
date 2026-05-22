@@ -85,10 +85,10 @@ export default {
   },
   methods: {
     // Gère la soumission du formulaire: POST, PUT ou PATCH selon l'état
-    handleSubmit(){
-      if(this.patch) {
+    handleSubmit() {
+      if (this.patch) {
         this.patchPost()
-      } else if(this.id){
+      } else if (this.id) {
         this.updatePost()
       } else {
         this.submitPost()
@@ -99,7 +99,7 @@ export default {
       this.userId = post.userId
       this.title = post.title
       this.body = post.body,
-      this.id = post.id
+        this.id = post.id
     },
     getPosts() {
       // Récupère tous les posts via l'API
@@ -139,23 +139,23 @@ export default {
         "title": this.title,
         "body": this.body
       }
-      
+
       axios.put(`posts/${this.id}`, data)
         .then((response) => {
           this.created = true
           this.updated = true
 
           console.log('Reponse ', response);
-          
+
           // Recherche l'index du post modifié dans le tableau local
-          const postIndex = this.data.data.findIndex((post)=> post.id == response.data.id )
+          const postIndex = this.data.data.findIndex((post) => post.id == response.data.id)
 
           console.log('Post position ', postIndex);
 
-          // Met à jour l'élément local avec la réponse du serveur
           this.id = ''
           this.resetForm()
-
+          
+          // Met à jour l'élément local avec la réponse du serveur
           this.data.data[postIndex] = response.data
         }).catch((error) => {
           console.log(error);
@@ -164,18 +164,18 @@ export default {
     patchPost() {
       // PATCH partiel: n'envoie que les champs modifiés
       this.loading = true
-      const postIndex = this.data.data.findIndex((post)=> post.id == this.id )
+      const postIndex = this.data.data.findIndex((post) => post.id == this.id)
 
       // Prépare un objet `data` ne contenant que les champs modifiés
       const data = {}
 
-      if(this.data.data[postIndex].title != this.title) {
+      if (this.data.data[postIndex].title != this.title) {
         data.title = this.title
       }
-      if(this.data.data[postIndex].userId != this.userId) {
+      if (this.data.data[postIndex].userId != this.userId) {
         data.userId = this.title
       }
-      if(this.data.data[postIndex].body != this.body) {
+      if (this.data.data[postIndex].body != this.body) {
         data.body = this.body
       }
 
@@ -185,28 +185,28 @@ export default {
           this.updated = true
 
           console.log('Reponse ', response);
-          
+
           console.log('Post position ', postIndex);
 
           this.id = ''
           this.resetForm()
 
           this.data.data[postIndex] = response.data
-          
+
           this.patch = false
         }).catch((error) => {
           console.log(error);
         })
     },
-    
+
     // Supprime un post après confirmation utilisateur
-    deletePost(id){
+    deletePost(id) {
       const comfirmation = window.confirm('Are you sure you want to delete this post?')
-      if(comfirmation) {
+      if (comfirmation) {
         axios.delete(`posts/${id}`).then(() => {
           // Retire le post supprimé du tableau local
-          this.data.data = this.data.data.filter((post)=> post.id != id)
-        }).catch((error)=> console.log(error))
+          this.data.data = this.data.data.filter((post) => post.id != id)
+        }).catch((error) => console.log(error))
       }
     },
     resetForm() {
